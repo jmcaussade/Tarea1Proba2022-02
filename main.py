@@ -16,19 +16,30 @@ def Data(column):
     Range = Max - Min
     Shape = column.shape
     Ni = round(1 + 3.32*math.log(Shape[0],10), 6)
-    Width = Max - Min
-    q = """SELECT * FROM Math WHERE c1 == NULL"""
-    n = sqldf.run(q)
-    print(n)
+    Width = Range/Ni
+    NewRange = Ni*Width
+    ListInterval = []
+    ListCount = []
+    Low = 0
+    High = Width
+    i = 0
+    while i < Ni:
+        L = str(round(Low, 3))
+        H = str(round(High, 3))
+        Interval = str("[" + L + " - " + H + "]")
+        ListInterval.append(Interval)
+        q = f"""SELECT * FROM Math WHERE {Low} < c1 AND c1 < {High}"""
+        n = sqldf.run(q)
+        count = n.shape[0]
+        ListCount.append(count)
+        Low+=Width
+        High+=Width
+        i+=1
+
+    ListData = [ListInterval, ListCount]
+    return ListData
 
 
-    return 0
 
-
-
-Data(Math)
-
-
-
-#b = f"""SELECT Average FROM {string} WHERE Year == {y}"""
-#        Data = pysqldf(b)
+x = Data(Math)
+print(x)
