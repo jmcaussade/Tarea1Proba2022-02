@@ -2,8 +2,8 @@ import pandas as pd
 import sqldf
 import math
 from tabulate import tabulate
-from pydoc import plain
-from turtle import color
+from matplotlib import pyplot as plt
+
 
 
 def Data(column, fname, cname):
@@ -49,7 +49,6 @@ def Data(column, fname, cname):
         #q = f"""SELECT * FROM Math WHERE {Low} < c1 AND c1 < {High}"""
         n = sqldf.run(q)
 
-        counter = 0
         #print(n)
         count = n.shape[0]
         print("Count",count)
@@ -87,12 +86,41 @@ file.rename(columns ={"writing score" : "c3"}, inplace = True)
 Math = file["c1"]
 Reading = file["c2"]
 Writing = file["c3"]
+
 ###############################
 #M = Data(Math)
 
 M = Data(Math, "Math", "c1")
-#R = Data(Reading, "Reading", "c2")
-#W = Data(Writing, "Writing", "c3")
+R = Data(Reading, "Reading", "c2")
+W = Data(Writing, "Writing", "c3")
+
+########### CODE ###############
+#print(M)
+def Graph(list):
+    ListInterval = []
+    i = 0
+    while i <len(list):
+        s = list[i][0]
+        s = s.replace("[","")
+        s = s.replace("]","")
+        s = s.replace(" ","")
+        s = s.split("-")
+        #print("s", s)
+        #print("i", i)
+        ListInterval.append(float(s[0]))
+        i+=1
+
+    s = list[i-1][0]
+    s = s.replace("[","")
+    s = s.replace("]","")
+    s = s.replace(" ","")
+    s = s.split("-")
+    #print("s", s)
+    ListInterval.append(float(s[1]))
+    #print(ListInterval)
+    return ListInterval
+
+#Graph(M)
 
 #### TABLE ##############
 heads = ["Interval", "f", "fr", "fr%", "F", "Fr", "Fr%"]
@@ -100,9 +128,42 @@ heads = ["Interval", "f", "fr", "fr%", "F", "Fr", "Fr%"]
 print("               ################### MATH TEST SCORES ####################")
 print(tabulate((M), headers = heads, tablefmt = "pretty"))
 
-""" print("               ################### READING TEST SCORES ####################")
-print(tabulate((R), headers = heads, tablefmt = "pretty")) """
+print("               ################### READING TEST SCORES ####################")
+print(tabulate((R), headers = heads, tablefmt = "pretty"))
 
-""" print("               ################### WRITING TEST SCORES ####################")
-print(tabulate((W), headers = heads, tablefmt = "pretty")) """
+print("               ################### WRITING TEST SCORES ####################")
+print(tabulate((W), headers = heads, tablefmt = "pretty"))
+
+###### GRAPH ##############
+
+D = Math["c1"]
+F = Reading["c2"]
+G = Writing["c3"]
+
+
+
+#MATH
+G1 = plt.figure("Gráfico 1: Histograma prueba Matematicas",figsize = (10, 10))
+bins = Graph(M)
+plt.title("Histograma prueba Matematicas")
+plt.xlabel("Score")
+plt.ylabel("Frecuencia absoluta")
+plt.hist(D, bins, facecolor='b', alpha=0.7, edgecolor='k', linewidth=1)
+#READING
+G2 = plt.figure("Gráfico 2: Histograma prueba Lectura",figsize = (10, 10))
+bins2 = Graph(R)
+plt.title("Histograma prueba Lectura")
+plt.xlabel("Score")
+plt.ylabel("Frecuencia absoluta")
+plt.hist(F, bins2, facecolor='r', alpha=0.7, edgecolor='k', linewidth=1)
+#WRITING
+G3 = plt.figure("Gráfico 3: Histograma prueba Escritura",figsize = (10, 10))
+bins3 = Graph(W)
+plt.title("Histograma prueba Escritura")
+plt.xlabel("Score")
+plt.ylabel("Frecuencia absoluta")
+plt.hist(G, bins3, facecolor='g', alpha=0.7, edgecolor='k', linewidth=1)
+
+plt.show()
+
 
