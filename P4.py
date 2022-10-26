@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 
 
 def Data(column, fname, cname):
+    print("Data :",fname)
     Min = column.min()
     print("Min", Min)
     Max = column.max()
