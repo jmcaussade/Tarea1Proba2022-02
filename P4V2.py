@@ -168,6 +168,6 @@ plt.ylabel("Frecuencia absoluta")
 plt.xticks(bins3)
 plt.hist(G, bins3, facecolor='g', alpha=0.7, edgecolor='k', linewidth=1)
 
-plt.show()
+#plt.show()
 
 
