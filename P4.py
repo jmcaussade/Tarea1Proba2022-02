@@ -38,43 +38,78 @@ def Data(column, fname, cname):
     NewMax = Min + NewRange
     print("NewMax", NewMax)
     while i < Ni:
-        print("\nRound ", i)
-        print("High", High)
-        print("Low", Low)
-        List = []
-        L = str(round(Low, 3))
-        H = str(round(High, 3))
-        Interval = str("[" + L + " - " + H + "]")
-        q = f"""SELECT * FROM {fname} WHERE {Low} <= {cname} AND {cname} < {High}"""
-        #q = f"""SELECT * FROM {fname} WHERE {Low} < {cname} """
-        #q = f"""SELECT * FROM Math WHERE {Low} < c1 AND c1 < {High}"""
-        n = sqldf.run(q)
+        if i < Ni-1:
+            print("\nRound ", i)
+            print("High", High)
+            print("Low", Low)
+            List = []
+            L = str(round(Low, 3))
+            H = str(round(High, 3))
+            Interval = str("[" + L + " - " + H + "]")
+            q = f"""SELECT * FROM {fname} WHERE {Low} <= {cname} AND {cname} < {High}"""
 
-        #print(n)
-        count = n.shape[0]
-        print("Count",count)
+            n = sqldf.run(q)
 
-        aux = count/Shape
-        fr = round(aux, 4)
-        fp = round(fr*100, 4)
-        F+=count
-        Fr+= round(fr,3)
-        Fp+= round(fp,3)
+            #print(n)
+            count = n.shape[0]
+            print("Count",count)
 
-        List.append(Interval)
-        List.append(count)
-        List.append(fr)
-        List.append(fp)
-        List.append(F)
-        List.append(Fr)
-        List.append(Fp)
+            aux = count/Shape
+            fr = round(aux, 4)
+            fp = round(fr*100, 4)
+            F+=count
+            Fr+= round(fr,3)
+            Fp+= round(fp,3)
 
-        ListData.append(List)
-        Low+=Width
-        High+=Width
+            List.append(Interval)
+            List.append(count)
+            List.append(fr)
+            List.append(fp)
+            List.append(F)
+            List.append(Fr)
+            List.append(Fp)
 
+            ListData.append(List)
+            Low+=Width
+            High+=Width
+
+        else:
+            print("\nRound ", i)
+            print("High", High)
+            print("Low", Low)
+            List = []
+            L = str(round(Low, 3))
+            H = str(round(High, 3))
+            Interval = str("[" + L + " - " + H + "]")
+            q = f"""SELECT * FROM {fname} WHERE {Low} < {cname} AND {cname} <= {NewMax}"""
+
+            n = sqldf.run(q)
+
+            #print(n)
+            count = n.shape[0]
+            print("Count",count)
+
+            aux = count/Shape
+            fr = round(aux, 4)
+            fp = round(fr*100, 4)
+            F+=count
+            Fr+= round(fr,3)
+            Fp+= round(fp,3)
+
+            List.append(Interval)
+            List.append(count)
+            List.append(fr)
+            List.append(fp)
+            List.append(F)
+            List.append(Fr)
+            List.append(Fp)
+
+            ListData.append(List)
+            Low+=Width
+            High+=Width
 
         i+=1
+    print("\nFIN\n")
     return ListData
 
 
