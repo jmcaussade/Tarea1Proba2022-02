@@ -1,22 +1,35 @@
 import pandas as pd
 
+
 file = pd.read_csv("StudentsPerformance.csv")
 file.rename(columns ={"math score" : "c1"}, inplace = True)
 file.rename(columns ={"reading score" : "c2"}, inplace = True)
 file.rename(columns ={"writing score" : "c3"}, inplace = True)
 
+
 Math = file["c1"]
 Reading = file["c2"]
 Writing = file["c3"]
-Mmean = Math.mean() 
-Mmode = Math.mode() 
-Mmedian = Math.median()
-Mdesvstd = Math.std()
-Mvar = Math.var()
-Mcvar = Mvar/ abs(Mmean)
-print("Mean", Mmean)
-print("Mode", Mmode[0])
-print("Median", Mmedian)
-print("Dstd", Mdesvstd)
-print("var", Mvar)
-print("Mcvar", Mcvar)
+
+def Description(fname):
+    mean = fname.mean() 
+    mode = fname.mode() 
+    median = fname.median()
+    desvstd = fname.std()
+    var = fname.var()
+    cvar = var/ abs(mean)
+    sesgo = mean - median
+    print("Mean", mean)
+    print("Mode", mode[0])
+    print("Median", median)
+    print("Dstd", desvstd)
+    print("var", var)
+    print("Mcvar", cvar)
+    print("Msesgo", sesgo)
+
+
+Description(Math)
+print("##############")
+Description(Reading)
+print("##############")
+Description(Writing)
