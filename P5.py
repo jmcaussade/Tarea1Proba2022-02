@@ -51,7 +51,7 @@ def Description(fname):
         print("la curva es simetrica ")
     else:
         print("Coeficiente Pearson:", cs)
-        print("la curva es asimetrica hacia laderecha")
+        print("la curva es asimetrica hacia la derecha")
 
 
 
