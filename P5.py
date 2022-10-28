@@ -12,6 +12,7 @@ Reading = file["c2"]
 Writing = file["c3"]
 
 def Description(fname):
+    sum = 0
     mean = fname.mean() 
     mode = fname.mode() 
     median = fname.median()
@@ -19,17 +20,45 @@ def Description(fname):
     var = fname.var()
     cvar = var/ abs(mean)
     sesgo = mean - median
-    print("Mean", mean)
-    print("Mode", mode[0])
-    print("Median", median)
-    print("Dstd", desvstd)
-    print("var", var)
-    print("Mcvar", cvar)
-    print("Msesgo", sesgo)
+    largo = Math.shape[0]
+    i = 0
+    while i < largo:
+        resta = Math[i] - mean
+        #print("Math[i]: ", Math[i], " Mean: ", mean)
+        #print("resta", resta)
+        p2 = resta**3
+        #print("p2",p2)
+        sum+=p2
+        #print("sum", sum)
+        i+=1
+    p3 = (var**3)*(largo - 1)
+    #print("p3 ", p3)
+    p4 = 1/p3
+    #print("p4", p4)
+    cs = "{:f}".format(p4 * sum)
+    print("Media:", mean)
+    print("Moda", mode[0])
+    print("Mediana:", median)
+    print("Desviacion Estandar:", desvstd)
+    print("Varianza:", var)
+    print("Coeficiente Variacion:", cvar)
+    print("Sesgo:", sesgo)
+    if float(cs) < 0:
+        print("Coeficiente Pearson:", cs)
+        print("la curva es asimetrica hacia la izquierda")
+    elif float(cs)  == 0:
+        print("Coeficiente Pearson:", cs)
+        print("la curva es simetrica ")
+    else:
+        print("Coeficiente Pearson:", cs)
+        print("la curva es asimetrica hacia laderecha")
 
 
+
+
+print("###### Prueba Matematica ############")
 Description(Math)
-print("##############")
+print("\n####### Prueba Lectura ########")
 Description(Reading)
-print("##############")
+print("\n######## Prueba Escritura ########")
 Description(Writing)
