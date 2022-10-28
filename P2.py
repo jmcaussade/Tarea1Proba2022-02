@@ -62,12 +62,14 @@ Reading = file[["c2", "g"]]
 Writing = file[["c3", "g"]]
 
 
-
-
 M = Data("Math", "c1")
 R = Data("Reading", "c2")
 W = Data("Writing", "c3")
 
+sub = file[["g", "c1", "c2", "c3"]]
+#sub["prom"] = ((sub["c1"] + sub["c2"] + sub["c3"])/3)
+sub["prom"] = (sub.iloc[:, [1, 2, 3]].sum(axis=1))/3
+X = Data("sub", "prom")
 
 #MATH
 G1 = plt.figure("Gráfico 1: BoxPlots prueba Matematicas",figsize = (10, 10))
@@ -78,7 +80,7 @@ plt.boxplot([M[0], M[1], M[2], M[3], M[4]], labels = ("A", "B", "C", "D", "E"))
 plt.show()
 
 #Reading
-G1 = plt.figure("Gráfico 2: BoxPlots prueba Lectura",figsize = (10, 10))
+G2 = plt.figure("Gráfico 2: BoxPlots prueba Lectura",figsize = (10, 10))
 plt.title("Puntajes prueba Lectura")
 plt.xlabel("Grupos")
 plt.ylabel("Puntaje")
@@ -86,9 +88,17 @@ plt.boxplot([R[0], R[1], R[2], R[3], R[4]], labels = ("A", "B", "C", "D", "E"))
 plt.show()
 
 #Writing
-G1 = plt.figure("Gráfico 3: BoxPlots prueba Escritura",figsize = (10, 10))
+G3 = plt.figure("Gráfico 3: BoxPlots prueba Escritura",figsize = (10, 10))
 plt.title("Puntajes prueba Escritura")
 plt.xlabel("Grupos")
 plt.ylabel("Puntaje")
 plt.boxplot([W[0], W[1], W[2], W[3], W[4]], labels = ("A", "B", "C", "D", "E"))
+plt.show()
+
+#Promedio pruebas
+G4 = plt.figure("Gráfico 4: BoxPlots promedio pruebas por grupo",figsize = (10, 10))
+plt.title("Promedio pruebas")
+plt.xlabel("Grupos")
+plt.ylabel("Puntaje")
+plt.boxplot([X[0], X[1], X[2], X[3], X[4]], labels = ("A", "B", "C", "D", "E"))
 plt.show()
