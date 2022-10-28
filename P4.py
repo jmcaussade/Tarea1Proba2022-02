@@ -7,41 +7,41 @@ from matplotlib import pyplot as plt
 
 
 def Data(column, fname, cname):
-    print("Data :",fname)
+    #print("Data :",fname, "\n")
     Min = column.min()
-    print("Min", Min)
+    #print("Min", Min)
     Max = column.max()
-    print("Max", Max)
+    #print("Max", Max)
     Range = Max - Min
-    print("Range", Range)
+    #print("Range", Range)
     Shape = column.shape
     Shape = Shape[0]
-    print("Shape",Shape)
+    #print("Shape",Shape)
     Ni = round(1 + 3.32*math.log(Shape,10))
-    print("Ni", Ni)
+    #print("Ni", Ni)
 
     #Ni = round(Ni,3)
     #print("Ni", Ni)
     Width = round(Range/Ni,10)
-    print("Width", Width)
+    #print("Width", Width)
     NewRange = Ni*Width
-    print("NewRange", NewRange)
+    #print("NewRange", NewRange)
     F = 0
     Fr = 0
     Fp = 0
     ListData = []
     Low = Min
-    print("Low", Low)
+    #print("Low", Low)
     High = round(Min + Width,3)
-    print("High", High)
+    #print("High", High)
     i = 0
-    NewMax = Min + NewRange
-    print("NewMax", NewMax)
+    NewMax = round(Min + NewRange,3)
+    #print("NewMax", NewMax)
     while i < Ni:
         if i < Ni-1:
-            print("\nRound ", i)
-            print("High", High)
-            print("Low", Low)
+            #print("\nRound ", i)
+            #print("High", High)
+            #print("Low", Low)
             List = []
             L = str(round(Low, 3))
             H = str(round(High, 3))
@@ -52,7 +52,7 @@ def Data(column, fname, cname):
 
             #print(n)
             count = n.shape[0]
-            print("Count",count)
+            #print("Count",count)
 
             aux = count/Shape
             fr = round(aux, 4)
@@ -74,9 +74,9 @@ def Data(column, fname, cname):
             High+=Width
 
         else:
-            print("\nRound ", i)
-            print("High", High)
-            print("Low", Low)
+            #print("\nRound ", i)
+            #print("High", High)
+            #print("Low", Low)
             List = []
             L = str(round(Low, 3))
             H = str(round(High, 3))
@@ -87,7 +87,7 @@ def Data(column, fname, cname):
 
             #print(n)
             count = n.shape[0]
-            print("Count",count)
+            #print("Count",count)
 
             aux = count/Shape
             fr = round(aux, 4)
@@ -109,7 +109,7 @@ def Data(column, fname, cname):
             High+=Width
 
         i+=1
-    print("\nFIN\n")
+    #print("\nFIN\n")
     return ListData
 
 
@@ -161,13 +161,13 @@ def Graph(list):
 #### TABLE ##############
 heads = ["Interval", "f", "fr", "fr%", "F", "Fr", "Fr%"]
 
-print("               ################### MATH TEST SCORES ####################")
-print(tabulate((M), headers = heads, tablefmt = "pretty"))
+print(" \n              ################### MATH TEST SCORES ####################")
+print(tabulate((M), headers = heads, tablefmt = "pretty"), "\n")
 
-print("               ################### READING TEST SCORES ####################")
-print(tabulate((R), headers = heads, tablefmt = "pretty"))
+print("\n              ################### READING TEST SCORES ####################")
+print("\n",tabulate((R), headers = heads, tablefmt = "pretty"),"\n")
 
-print("               ################### WRITING TEST SCORES ####################")
+print("\n               ################### WRITING TEST SCORES ####################")
 print(tabulate((W), headers = heads, tablefmt = "pretty"))
 
 ###### GRAPH ##############

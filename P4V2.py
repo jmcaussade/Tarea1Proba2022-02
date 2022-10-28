@@ -9,39 +9,26 @@ from matplotlib import pyplot as plt
 def Data(column, fname, cname):
     print("Data :",fname, "\n")
     Min = column.min()
-    print("Min", Min)
     Max = column.max()
-    print("Max", Max)
     Range = Max - Min
-    print("Range", Range)
     Shape = column.shape
     Shape = Shape[0]
-    print("Shape",Shape)
     Ni = round(1 + 3.32*math.log(Shape,10))
-    print("Ni", Ni)
 
     #Ni = round(Ni,3)
     #print("Ni", Ni)
     Width = round(Range/Ni,10)
-    print("Width", Width)
     NewRange = Ni*Width
-    print("NewRange", NewRange)
     F = 0
     Fr = 0
     Fp = 0
     ListData = []
     Low = Min
-    print("Low", Low)
     High = round(Min + Width,3)
-    print("High", High)
     i = 0
     NewMax = round(Min + NewRange,3)
-    print("NewMax", NewMax)
     while i < Ni:
         if i < Ni-1:
-            print("\nRound ", i)
-            print("High", High)
-            print("Low", Low)
             List = []
             L = str(round(Low, 3))
             H = str(round(High, 3))
@@ -52,14 +39,17 @@ def Data(column, fname, cname):
 
             #print(n)
             count = n.shape[0]
-            print("Count",count)
 
             aux = count/Shape
             fr = round(aux, 4)
+            print("fr: ", fr)
             fp = round(fr*100, 4)
+            print("fp: ", fp)
             F+=count
-            Fr+= round(fr,3)
-            Fp+= round(fp,3)
+            Fr+= fr
+            print("Fr: ", Fr)
+            Fp+= fp
+            print("Fp: ", Fp)
 
             List.append(Interval)
             List.append(count)
@@ -74,20 +64,15 @@ def Data(column, fname, cname):
             High+=Width
 
         else:
-            print("\nRound ", i)
-            print("High", High)
-            print("Low", Low)
             List = []
             L = str(round(Low, 3))
             H = str(round(High, 3))
             Interval = str("[" + L + " - " + H + "]")
             q = f"""SELECT * FROM {fname} WHERE {Low} < {cname} AND {cname} <= {NewMax}"""
-
             n = sqldf.run(q)
 
             #print(n)
             count = n.shape[0]
-            print("Count",count)
 
             aux = count/Shape
             fr = round(aux, 4)
