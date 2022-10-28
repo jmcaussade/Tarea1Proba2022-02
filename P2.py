@@ -64,9 +64,31 @@ Writing = file[["c3", "g"]]
 
 
 
-x = Data("Math", "c1")
+M = Data("Math", "c1")
+R = Data("Reading", "c2")
+W = Data("Writing", "c3")
 
-plt.boxplot([x[0], x[1], x[2], x[3], x[4]])
+
+#MATH
+G1 = plt.figure("Gráfico 1: BoxPlots prueba Matematicas",figsize = (10, 10))
+plt.title("Puntajes prueba Matematicas")
+plt.xlabel("Grupos")
+plt.ylabel("Puntaje")
+plt.boxplot([M[0], M[1], M[2], M[3], M[4]], labels = ("A", "B", "C", "D", "E"))
 plt.show()
 
+#Reading
+G1 = plt.figure("Gráfico 2: BoxPlots prueba Lectura",figsize = (10, 10))
+plt.title("Puntajes prueba Lectura")
+plt.xlabel("Grupos")
+plt.ylabel("Puntaje")
+plt.boxplot([R[0], R[1], R[2], R[3], R[4]], labels = ("A", "B", "C", "D", "E"))
+plt.show()
 
+#Writing
+G1 = plt.figure("Gráfico 3: BoxPlots prueba Escritura",figsize = (10, 10))
+plt.title("Puntajes prueba Escritura")
+plt.xlabel("Grupos")
+plt.ylabel("Puntaje")
+plt.boxplot([W[0], W[1], W[2], W[3], W[4]], labels = ("A", "B", "C", "D", "E"))
+plt.show()
